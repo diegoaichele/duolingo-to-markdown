@@ -1,0 +1,38 @@
+name: 'duolingo to markdown'
+author: 'DiegoAichele'
+description: 'Uopdate your Duolingo progress to your GitHub Profile or any repo with a README.md'
+inputs:
+  DUOLINGO_USERNAME:
+    description: 'Duolingo Username'
+    required: true
+    default: DUOLINGO_USERNAME
+
+  DUOLINGO_PASSWORD:
+    description: 'Duolingo Password .'
+    required: true
+    default: DUOLINGO_PASSWORD
+    
+  DUOLINGO_LANGUAGE_LENGTH:
+    description: 'How many language you want show.'
+    required: false
+    default: '3'
+
+  DUOLINGO_STREAK:
+    description: 'Include streak duolingo.'
+    required: false
+    default: false
+
+runs:
+  using: 'composite'
+  steps:
+    - env:
+        DUOLINGO_USERNAME: ${{ inputs.DUOLINGO_USERNAME }}
+        DUOLINGO_PASSWORD: ${{ inputs.DUOLINGO_PASSWORD }}
+        DUOLINGO_LANGUAGE_LENGTH: ${{ inputs.DUOLINGO_LANGUAGE_LENGTH }}
+        DUOLINGO_STREAK: ${{ inputs.DUOLINGO_STREAK }}
+      run: python ${{ github.action_path }}/duolingo-to-markdown.py
+      shell: bash
+
+branding:
+  icon: book
+  color: green

@@ -1,0 +1,48 @@
+name: dailyduo
+
+on:
+  schedule:
+    - cron: '1 1 * * *'
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+jobs:
+  # This workflow contains a single job called "build"
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - name: repo checkout
+        uses: actions/checkout@v2
+
+      - name: python setup
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.x'
+
+      - name: python packages installation
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requeriments.txt
+      - name: use duolingo account
+        env:
+          DUOLINGO_USERNAME: ${{ secrets.DUOLINGO_USERNAME }}
+          DUOLINGO_PASSWORD: ${{ secrets.DUOLINGO_PASSWORD }}
+          DUOLINGO_STREAK: true
+          DUOLINGO_LANGUAGE_LENGTH: 2
+        run: python duolingo-to-markdown.py
+
+      - name: commit changes
+        continue-on-error: true
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add -A
+          git commit -m "Updated duo-daily progress" -a
+        
+      - name: push changes
+        continue-on-error: true
+        uses: ad-m/github-push-action@v0.6.0
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          branch: main
