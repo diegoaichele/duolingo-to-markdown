@@ -1,6 +1,6 @@
 name: 'duolingo to markdown'
 author: 'DiegoAichele'
-description: 'Uopdate your Duolingo progress to your GitHub Profile or any repo with a README.md'
+description: 'Update your Duolingo progress to your GitHub Profile or any repo with a README.md'
 inputs:
   DUOLINGO_USERNAME:
     description: 'Duolingo Username'
