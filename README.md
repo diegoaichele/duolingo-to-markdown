@@ -17,7 +17,45 @@
 * Add a ```<!-- duolingo -->``` tag in your README.md file, with three blank lines below it. The Duolingo progress will be placed here.
 
 ## Instructions
-Will Update:
 
+
+To use this release, add a ```duolingo-to-markdown.yml``` workflow file to the ```.github/workflows``` folder in your repository with the following code:
+
+```diff
+name: duolingo-to-markdown
+
+on:
+  schedule:
+    - cron: '1 1 * * *'
+  workflow_dispatch:
+
+jobs:
+  duolingo:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: duolingo to markdown
+        uses: diegoaichele/duolingo-to-markdown@duolingo
+        with:
+          DUOLINGO_USERNAME: ${{ secrets.DUOLINGO_USERNAME }}
+          DUOLINGO_PASSWORD: ${{ secrets.DUOLINGO_PASSWORD }}
+#         DUOLINGO_STREAK: true # Optional. Defaults is true. If you want to include your last streak on Duolingo.
+#         DUOLINGO_LANGUAGE_LENGTH: 2 # Optional. Defaults to 2. Language you want to show (are sort of higher experience to lower).
+      - name: commit changes
+        continue-on-error: true
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add -A
+          git commit -m "Updated duolingo-to-markdown daily progress" -a
+      - name: push changes
+        continue-on-error: true
+        uses: ad-m/github-push-action@v0.6.0
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}\
+          branch: main
+```          
+The cron job is scheduled to run once a day, but you can do it weekly changing  ```- cron: '1 1 * * *' ```. You can manually run the workflow to test the code, going to the Actions tab in your repository.
+          
 ## TODO:
  -  Feel free to open an issue or send a pull request for anything you believe would be useful.
