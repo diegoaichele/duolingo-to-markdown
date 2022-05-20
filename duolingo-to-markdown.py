@@ -19,9 +19,9 @@ def duolingo_request():
 
 def get_duloingo_info(response):
     num_language = int(os.getenv('DUOLINGO_LANGUAGE_LENGTH'))
-    lang_list = [( language_list["language_string"],language_list["level"], language_list["points"] ) for language_list in response["languages"] if language_list["learning"] == True]
-    lang_list = [lang for lang in lang_list[:num_language]]
+    lang_list = [( language_list["language_string"],language_list["level"], language_list["points"] ) for language_list in response["languages"]]# if language_list["learning"] == True]
     lang_list.sort(key=lambda lang:lang[2], reverse= True)
+    lang_list = [lang for lang in lang_list[:num_language]]
     return lang_list
  
  
