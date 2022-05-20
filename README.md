@@ -55,7 +55,7 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}\
           branch: main
 ```          
-The cron job is scheduled to run once a day, but you can do it weekly changing  ```- cron: '1 1 * * *' ```. You can manually run the workflow to test the code, going to the Actions tab in your repository.
+The cron job is scheduled to run once a day, but you can do it weekly changing  ```- cron: '1 1 1 * *' ```. You can manually run the workflow to test the code, going to the Actions tab in your repository.
           
 ## TODO:
  -  Feel free to open an issue or send a pull request for anything you believe would be useful.
