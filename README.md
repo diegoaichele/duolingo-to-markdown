@@ -35,7 +35,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: duolingo to markdown
-        uses: diegoaichele/duolingo-to-markdown@duolingo
+        uses: diegoaichele/duolingo-to-markdown@v0.1
         with:
           DUOLINGO_USERNAME: ${{ secrets.DUOLINGO_USERNAME }}
           DUOLINGO_PASSWORD: ${{ secrets.DUOLINGO_PASSWORD }}
