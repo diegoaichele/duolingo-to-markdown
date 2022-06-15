@@ -30,7 +30,10 @@ def update_readme(response):
     streak_str = os.getenv('DUOLINGO_STREAK')
     with open('README.md', 'r', encoding='utf-8') as file:
         readme = file.readlines()
-    duolingo_line_index = readme.index('<!-- duolingo -->\n') + 1
+    try:
+        duolingo_line_index = readme.index('<!-- duolingo -->\n') + 1
+    except:
+        sys.exit("Could not find '<!-- duolingo -->' in your README.md")
     duolingo_line = '<p align="center">'
     
     duolingo_line += '<img src="https://d35aaqx5ub95lt.cloudfront.net/images/dc30aa15cf53a51f7b82e6f3b7e63c68.svg">  Duolingo username: <strong> {} </strong> </br>'.format(username)
