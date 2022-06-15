@@ -13,8 +13,7 @@ def duolingo_request():
     if response.status_code == 200:
         response = response.json()
         return response
-    else: 
-        sys.exit(1)
+    sys.exit("Incorrect password or username. Please try again with another vaues.")
 
 
 def get_duloingo_info(response):
